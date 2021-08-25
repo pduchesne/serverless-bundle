@@ -239,10 +239,18 @@ function plugins() {
     plugins.push(
       new CopyWebpackPlugin({
         patterns: copyFiles.map(function(data) {
+          let context;
+          if (data.context) {
+            if (data.contextType == "module")
+              context = path.parse(require.resolve(data.context)).dir;
+            else context = path.join(servicePath, data.context);
+          } else {
+            context = servicePath;
+          }
           return {
             to: data.to,
-            context: servicePath,
-            from: path.join(servicePath, data.from)
+            context,
+            from: path.join(context, data.from),
           };
         })
       })
