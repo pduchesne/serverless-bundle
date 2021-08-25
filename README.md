@@ -122,6 +122,8 @@ custom:
     copyFiles:                      # Copy any additional files to the generated package
       - from: 'public/*'              # Where the files are currently
         to: './'                      # Where in the package should they go
+        context: '../node_modules/a'  # The context, as documented in copy-webpack-plugin
+        contextType: 'module'         # if 'module', context value is interpreted as a module path 
     aliases:                        # Create an alias to 'import' modules easily with a custom path
       - Lib: custom-lib/src/lib       # For ex, replace the long 'custom-lib/src/lib' with 'Lib'
     concatText:                     # Concatenate text files into one file on the generated package
